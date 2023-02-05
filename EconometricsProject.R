@@ -15,7 +15,6 @@ library(urca)
 library(tseries)
 library(vars)
 library(ggplot2)
-library(rmarkdown)        
 library(tinytex) 
 
 # set the working directory
@@ -287,7 +286,6 @@ coeftest(regression_fo_diff, vcov. = vcovHC, type = "HC1")
 coeftest(regression_fo_diff, vcov = NeweyWest, prewhite = F, adjust = T)
 
 ## The ARDL model ##
-df2<-cbind(GDP_Diff, AHW_M_Diff, G_W_Gap_Diff, E_F_Diff, WBR_M_Diff, PPR_Diff)
 Regr_ARDL<-dynlm(L(GDP_Diff)~L(GDP_Diff)+L(AHW_M_Diff)+L(G_W_Gap_Diff)+L(E_F_Diff)+L(WBR_M_Diff)+L(PPR_Diff))
 summary(Regr_ARDL)
 head(fortify(Regr_ARDL))
@@ -300,12 +298,10 @@ ARDL<- Regr_ARDL
 REGFIRSTDIF<-regression_fo_diff
 
 
-stargazer(SIMPLEMRM, ARDL, 
+stargazer(SIMPLEMRM, REGFIRSTDIF, ARDL,
           type = "html",
-          out="Regression tables.htm")
-stargazer(REGFIRSTDIF, 
-          type = "html",
-          out="Regression first differences.htm")
+          out="Regression Tables.htm")
+
 
 
 
